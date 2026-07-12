@@ -13,7 +13,7 @@
 
 ---
 ## 🎬 Demo
-🎥 **[Watch the Full Demonstration Video →](https://drive.google.com/file/d/1oIw4DRDWCMX4-gV8kJVXSRg0r1kfBJr-/view?usp=sharing)**
+🎥 **[Watch the Full Demonstration Video (Tap)](https://drive.google.com/file/d/1oIw4DRDWCMX4-gV8kJVXSRg0r1kfBJr-/view?usp=sharing)**
 ---
 ## 📌 Problem Statement
 Organizations across industries — offices, schools, hospitals, factories — still rely on **spreadsheets and paper logs** to track equipment, furniture, vehicles, and shared spaces. This leads to:
