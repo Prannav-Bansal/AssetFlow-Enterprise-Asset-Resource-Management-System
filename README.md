@@ -4,6 +4,13 @@
 ![Stack](https://img.shields.io/badge/Stack-MERN-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 > *A centralized ERP platform to simplify and digitize how organizations track, allocate, and maintain their physical assets and shared resources.*
 ---
+## 👥 Team
+| Name | Role | GitHub |
+|------|------|--------|
+| **Pranav Bansal** | 🎯 Team Lead | [@Prannav-Bansal](https://github.com/Prannav-Bansal) |
+| **Rytham Maalpani** | 💻 Member | — |
+| **Aarjav Jain** | 💻 Member | — |
+---
 ## 🎬 Demo
 🎥 **[Watch the Full Demonstration Video →](YOUR_VIDEO_LINK_HERE)**
 ---
