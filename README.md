@@ -1,25 +1,11 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/ODOO-HACKATHON%202026-714B67?style=for-the-badge&logo=odoo&logoColor=white" />
-  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Stack-MERN-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
-</p>
-<h1 align="center">🏢 AssetFlow</h1>
-<h3 align="center">Enterprise Asset & Resource Management System</h3>
-<p align="center">
-  <i>A centralized ERP platform to simplify and digitize how organizations track, allocate, and maintain their physical assets and shared resources.</i>
-</p>
-<p align="center">
-  <a href="#-demo">Demo</a> •
-  <a href="#-features">Features</a> •
-  <a href="#%EF%B8%8F-tech-stack">Tech Stack</a> •
-  <a href="#-architecture">Architecture</a> •
-  <a href="#-getting-started">Getting Started</a> •
-  <a href="#-team">Team</a>
-</p>
+# 🏢 AssetFlow — Enterprise Asset & Resource Management System
+![ODOO Hackathon 2026](https://img.shields.io/badge/ODOO-HACKATHON%202026-714B67?style=for-the-badge&logo=odoo&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
+![Stack](https://img.shields.io/badge/Stack-MERN-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+> *A centralized ERP platform to simplify and digitize how organizations track, allocate, and maintain their physical assets and shared resources.*
 ---
 ## 🎬 Demo
-> 🎥 **[Watch the Full Demonstration Video →](YOUR_VIDEO_LINK_HERE)**
-<!-- Replace YOUR_VIDEO_LINK_HERE with your actual demo video URL -->
+🎥 **[Watch the Full Demonstration Video →](YOUR_VIDEO_LINK_HERE)**
 ---
 ## 📌 Problem Statement
 Organizations across industries — offices, schools, hospitals, factories — still rely on **spreadsheets and paper logs** to track equipment, furniture, vehicles, and shared spaces. This leads to:
@@ -83,201 +69,65 @@ Organizations across industries — offices, schools, hospitals, factories — s
 - Password security management
 ---
 ## 🛠️ Tech Stack
-|
- Layer 
-|
- Technology 
-|
-|
----
-|
----
-|
-|
-**
-Frontend
-**
-|
- Next.js 15 (App Router), React 18+, TypeScript 
-|
-|
-**
-Styling
-**
-|
- Tailwind CSS v4, Shadcn/UI, Framer Motion 
-|
-|
-**
-State Management
-**
-|
- Zustand (with persist middleware) 
-|
-|
-**
-Forms & Validation
-**
-|
- React Hook Form + Zod 
-|
-|
-**
-Charts
-**
-|
- Recharts 
-|
-|
-**
-Calendar
-**
-|
- react-big-calendar + date-fns 
-|
-|
-**
-HTTP Client
-**
-|
- Axios (with interceptors for token refresh) 
-|
-|
-**
-Backend
-**
-|
- Node.js 20+, Express.js 
-|
-|
-**
-Database
-**
-|
- MongoDB + Mongoose ODM 
-|
-|
-**
-Authentication
-**
-|
- JWT (Access + Refresh Tokens), bcryptjs 
-|
-|
-**
-File Uploads
-**
-|
- Multer + Cloudinary 
-|
-|
-**
-Security
-**
-|
- Helmet, CORS, express-rate-limit 
-|
-|
-**
-Background Jobs
-**
-|
- node-cron (overdue detection, reminders) 
-|
-|
-**
-Validation
-**
-|
- Joi (server-side) 
-|
-|
-**
-Logging
-**
-|
- Morgan 
-|
-|
-**
-Deployment
-**
-|
- Render (render.yaml configured) 
-|
+| Layer | Technology |
+|-------|-----------|
+| **Frontend** | Next.js 15 (App Router), React 18+, TypeScript |
+| **Styling** | Tailwind CSS v4, Shadcn/UI, Framer Motion |
+| **State Management** | Zustand (with persist middleware) |
+| **Forms & Validation** | React Hook Form + Zod |
+| **Charts** | Recharts |
+| **Calendar** | react-big-calendar + date-fns |
+| **HTTP Client** | Axios (with interceptors for token refresh) |
+| **Backend** | Node.js 20+, Express.js |
+| **Database** | MongoDB + Mongoose ODM |
+| **Authentication** | JWT (Access + Refresh Tokens), bcryptjs |
+| **File Uploads** | Multer + Cloudinary |
+| **Security** | Helmet, CORS, express-rate-limit |
+| **Background Jobs** | node-cron (overdue detection, reminders) |
+| **Validation** | Joi (server-side) |
+| **Logging** | Morgan |
+| **Deployment** | Render (render.yaml configured) |
 ---
 ## 🏗 Architecture
 ```
 AssetFlow/
-├── server/                    # Express.js Backend API
-│   ├── config/                # DB connection, Cloudinary setup
-│   ├── controllers/           # Route handlers (business logic)
-│   ├── middleware/             # Auth guards, role checks, error handler
-│   ├── models/                # 15 Mongoose schemas
-│   │   ├── Asset.js
-│   │   ├── AssetAllocation.js
-│   │   ├── AssetCategory.js
-│   │   ├── AuditCycle.js
-│   │   ├── AuditRecord.js
-│   │   ├── Booking.js
-│   │   ├── Department.js
-│   │   ├── Employee.js
-│   │   ├── MaintenanceRequest.js
-│   │   ├── Notification.js
-│   │   ├── Role.js
-│   │   ├── TransferRequest.js
-│   │   ├── UserSession.js
-│   │   ├── ActivityLog.js
-│   │   └── Counter.js
-│   ├── routes/                # 15 RESTful route modules
-│   ├── validators/            # Joi request validation schemas
-│   ├── services/              # Business logic services
-│   ├── jobs/                  # Cron jobs (overdue checks, reminders)
-│   ├── seed/                  # Database seeder scripts
-│   ├── utils/                 # Helper functions
-│   ├── app.js                 # Express app configuration
-│   └── server.js              # Entry point
 │
-├── frontend/                  # Next.js 15 Frontend
-│   └── AssetFlow-.../
-│       ├── src/
-│       │   ├── app/
-│       │   │   ├── (auth)/        # Login, Signup, Forgot Password
-│       │   │   └── (dashboard)/   # All protected ERP modules
-│       │   │       ├── dashboard/
-│       │   │       ├── assets/
-│       │   │       ├── allocations/
-│       │   │       ├── bookings/
-│       │   │       ├── audits/
-│       │   │       ├── employees/
-│       │   │       ├── departments/
-│       │   │       ├── activity/
-│       │   │       └── settings/
-│       │   ├── components/
-│       │   │   ├── ui/            # Shadcn/UI primitives
-│       │   │   ├── layout/        # Sidebar, Header, DashboardLayout
-│       │   │   ├── auth/          # ProtectedRoute
-│       │   │   ├── assets/        # AssetFormDialog
-│       │   │   ├── bookings/      # BookingFormDialog
-│       │   │   ├── maintenance/   # MaintenanceFormDialog
-│       │   │   ├── employees/     # EmployeeFormDialog
-│       │   │   └── departments/   # DepartmentFormDialog
-│       │   ├── services/          # Axios instance & API services
-│       │   ├── store/             # Zustand auth store
-│       │   ├── types/             # TypeScript interfaces
-│       │   └── lib/               # Utility functions
-│       └── public/
+├── server/                        # Express.js Backend API
+│   ├── config/                    # DB connection, Cloudinary setup
+│   ├── controllers/               # Route handlers (business logic)
+│   ├── middleware/                 # Auth guards, role checks, error handler
+│   ├── models/                    # 15 Mongoose schemas
+│   ├── routes/                    # 15 RESTful route modules
+│   ├── validators/                # Joi request validation schemas
+│   ├── services/                  # Business logic services
+│   ├── jobs/                      # Cron jobs (overdue checks, reminders)
+│   ├── seed/                      # Database seeder scripts
+│   ├── utils/                     # Helper functions
+│   ├── app.js                     # Express app configuration
+│   └── server.js                  # Entry point
 │
-├── render.yaml                # Render deployment config
-├── implementation_plan.md     # Detailed project blueprint
-└── ER Diagram.jpeg            # Entity Relationship Diagram
+├── frontend/                      # Next.js 15 Frontend
+│   └── src/
+│       ├── app/
+│       │   ├── (auth)/            # Login, Signup, Forgot Password
+│       │   └── (dashboard)/       # All protected ERP modules
+│       ├── components/
+│       │   ├── ui/                # Shadcn/UI primitives
+│       │   ├── layout/            # Sidebar, Header, DashboardLayout
+│       │   └── ...                # Feature-specific dialogs
+│       ├── services/              # Axios instance & API services
+│       ├── store/                 # Zustand auth store
+│       ├── types/                 # TypeScript interfaces
+│       └── lib/                   # Utility functions
+│
+├── render.yaml                    # Render deployment config
+├── implementation_plan.md         # Detailed project blueprint
+└── ER Diagram.jpeg                # Entity Relationship Diagram
 ```
 ---
 ## 🗃️ Database Design (ERD)
 The system is built on **15 interconnected MongoDB collections** covering the full enterprise asset lifecycle:
-<p align="center">
-  <img src="ER - Asset Management System - Odoo 2026.jpeg" alt="Entity Relationship Diagram" width="800"/>
-</p>
+![Entity Relationship Diagram](ER%20-%20Asset%20Management%20System%20-%20Odoo%202026.jpeg)
 ---
 ## 🚀 Getting Started
 ### Prerequisites
@@ -321,294 +171,51 @@ npm install
 ```
 Start the development server:
 ```bash
-npm run dev -- --webpack
+npm run dev
 ```
 > Frontend runs at `http://localhost:3000`
 ### 4️⃣ Default Login Credentials
 After seeding, use these credentials to log in:
-|
- Role 
-|
- Email 
-|
- Password 
-|
-|
----
-|
----
-|
----
-|
-|
- Admin 
-|
-`admin@assetflow.com`
-|
-`password123`
-|
-|
- Asset Manager 
-|
-`manager@assetflow.com`
-|
-`password123`
-|
-|
- Employee 
-|
-`employee@assetflow.com`
-|
-`password123`
-|
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | `admin@assetflow.com` | `password123` |
+| Asset Manager | `manager@assetflow.com` | `password123` |
+| Employee | `employee@assetflow.com` | `password123` |
 ---
 ## 🔌 API Endpoints
-|
- Module 
-|
- Method 
-|
- Endpoint 
-|
- Description 
-|
-|
----
-|
----
-|
----
-|
----
-|
-|
-**
-Auth
-**
-|
- POST 
-|
-`/api/auth/signup`
-|
- Register new employee 
-|
-|
-|
- POST 
-|
-`/api/auth/login`
-|
- Login & get tokens 
-|
-|
-|
- POST 
-|
-`/api/auth/refresh`
-|
- Refresh access token 
-|
-|
-|
- POST 
-|
-`/api/auth/logout`
-|
- Invalidate session 
-|
-|
-**
-Assets
-**
-|
- GET 
-|
-`/api/assets`
-|
- List assets (filterable) 
-|
-|
-|
- POST 
-|
-`/api/assets`
-|
- Create new asset 
-|
-|
-|
- PATCH 
-|
-`/api/assets/:id`
-|
- Update asset 
-|
-|
-|
- DELETE 
-|
-`/api/assets/:id`
-|
- Retire/dispose asset 
-|
-|
-**
-Allocations
-**
-|
- POST 
-|
-`/api/allocations`
-|
- Allocate asset 
-|
-|
-|
- PATCH 
-|
-`/api/allocations/:id/return`
-|
- Return asset 
-|
-|
-**
-Transfers
-**
-|
- POST 
-|
-`/api/transfers`
-|
- Request transfer 
-|
-|
-|
- PATCH 
-|
-`/api/transfers/:id/approve`
-|
- Approve/reject transfer 
-|
-|
-**
-Bookings
-**
-|
- GET 
-|
-`/api/bookings`
-|
- List bookings 
-|
-|
-|
- POST 
-|
-`/api/bookings`
-|
- Create booking 
-|
-|
-|
- PATCH 
-|
-`/api/bookings/:id/cancel`
-|
- Cancel booking 
-|
-|
-**
-Maintenance
-**
-|
- POST 
-|
-`/api/maintenance`
-|
- Report issue 
-|
-|
-|
- PATCH 
-|
-`/api/maintenance/:id/assign`
-|
- Assign technician 
-|
-|
-|
- PATCH 
-|
-`/api/maintenance/:id/resolve`
-|
- Resolve ticket 
-|
-|
-**
-Audits
-**
-|
- POST 
-|
-`/api/audits/cycles`
-|
- Create audit cycle 
-|
-|
-|
- POST 
-|
-`/api/audits/records`
-|
- Record audit result 
-|
-|
-**
-Dashboard
-**
-|
- GET 
-|
-`/api/dashboard/kpis`
-|
- Get KPI metrics 
-|
-|
-**
-Reports
-**
-|
- GET 
-|
-`/api/reports/assets`
-|
- Asset analytics 
-|
+| Module | Method | Endpoint | Description |
+|--------|--------|----------|-------------|
+| **Auth** | POST | `/api/auth/signup` | Register new employee |
+| | POST | `/api/auth/login` | Login & get tokens |
+| | POST | `/api/auth/refresh` | Refresh access token |
+| | POST | `/api/auth/logout` | Invalidate session |
+| **Assets** | GET | `/api/assets` | List assets (filterable) |
+| | POST | `/api/assets` | Create new asset |
+| | PATCH | `/api/assets/:id` | Update asset |
+| | DELETE | `/api/assets/:id` | Retire/dispose asset |
+| **Allocations** | POST | `/api/allocations` | Allocate asset |
+| | PATCH | `/api/allocations/:id/return` | Return asset |
+| **Transfers** | POST | `/api/transfers` | Request transfer |
+| | PATCH | `/api/transfers/:id/approve` | Approve/reject transfer |
+| **Bookings** | GET | `/api/bookings` | List bookings |
+| | POST | `/api/bookings` | Create booking |
+| | PATCH | `/api/bookings/:id/cancel` | Cancel booking |
+| **Maintenance** | POST | `/api/maintenance` | Report issue |
+| | PATCH | `/api/maintenance/:id/assign` | Assign technician |
+| | PATCH | `/api/maintenance/:id/resolve` | Resolve ticket |
+| **Audits** | POST | `/api/audits/cycles` | Create audit cycle |
+| | POST | `/api/audits/records` | Record audit result |
+| **Dashboard** | GET | `/api/dashboard/kpis` | Get KPI metrics |
+| **Reports** | GET | `/api/reports/assets` | Asset analytics |
 ---
 ## 👥 Team
-<table align="center">
-  <tr>
-    <td align="center">
-      <b>Pranav Bansal</b><br/>
-      <sub>Team Lead</sub><br/>
-      <a href="https://github.com/Prannav-Bansal">
-        <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" />
-      </a>
-    </td>
-    <td align="center">
-      <b>Rytham Maalpani</b><br/>
-      <sub>Member</sub>
-    </td>
-    <td align="center">
-      <b>Aarjav Jain</b><br/>
-      <sub>Member</sub>
-    </td>
-  </tr>
-</table>
+| Name | Role | GitHub |
+|------|------|--------|
+| **Pranav Bansal** | 🎯 Team Lead | [@Prannav-Bansal](https://github.com/Prannav-Bansal) |
+| **Rytham Maalpani** | 💻 Member | — |
+| **Aarjav Jain** | 💻 Member | — |
 ---
 ## 📄 License
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**.
 ---
-<p align="center">
-  Built with ❤️ for the <b>Odoo Hackathon 2026</b>
-</p>
+> Built with ❤️ for the **Odoo Hackathon 2026**
