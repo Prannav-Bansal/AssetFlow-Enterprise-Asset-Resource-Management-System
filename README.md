@@ -221,7 +221,7 @@ After seeding, use these credentials to log in:
 |------|------|--------|
 | **Pranav Bansal** | 🎯 Team Lead | [@Prannav-Bansal](https://github.com/Prannav-Bansal) |
 | **Rytham Maalpani** | 💻 Member | — |
-| **Aarjav Jain** | 💻 Member | — |
+| **Aarjav Jain** | 💻 Member | [@Aarjav-Jain](https://github.com/Aarjav-Jain-2210) |
 ---
 ## 📄 License
 This project is licensed under the **MIT License**.
