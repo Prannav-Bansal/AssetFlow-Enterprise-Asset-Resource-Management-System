@@ -7,8 +7,8 @@
 ## 👥 Team
 | Name | Role | GitHub |
 |------|------|--------|
-| **Pranav Bansal** | 🎯 Team Lead | [@Prannav-Bansal](https://github.com/Prannav-Bansal) |
-| **Rytham Maalpani** | 💻 Member | — |
+| **Pranav Bansal** | 🎯 Team Lead | 
+| **Rytham Maalpani** | 💻 Member | 
 | **Aarjav Jain** | 💻 Member | — |
 ---
 ## 🎬 Demo
