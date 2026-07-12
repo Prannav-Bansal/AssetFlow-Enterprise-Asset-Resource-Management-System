@@ -5,11 +5,11 @@
 > *A centralized ERP platform to simplify and digitize how organizations track, allocate, and maintain their physical assets and shared resources.*
 ---
 ## 👥 Team
-| Name | Role | GitHub |
+| Name | Role |
 |------|------|--------|
 | **Pranav Bansal** | 🎯 Team Lead | 
 | **Rytham Maalpani** | 💻 Member | 
-| **Aarjav Jain** | 💻 Member | — |
+| **Aarjav Jain** | 💻 Member | —|
 ---
 ## 🎬 Demo
 🎥 **[Watch the Full Demonstration Video →](YOUR_VIDEO_LINK_HERE)**
