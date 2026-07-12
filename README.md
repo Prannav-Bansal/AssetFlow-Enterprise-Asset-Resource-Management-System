@@ -1,170 +1,614 @@
-# AssetFlow — Enterprise Asset & Resource Management System
-
-Full-stack MERN application for tracking assets, allocations, bookings,
-maintenance, and audits. This is a monorepo with two deployable apps:
-
-| App | Path | Stack |
-|-----|------|-------|
-| **Backend API** | `server/` | Node.js + Express + MongoDB (Mongoose) |
-| **Frontend** | `frontend/AssetFlow-Enterprise-Asset-Resource-Management-System/` | Next.js 16 + React 19 + Tailwind |
-
-The frontend talks to the backend over REST; both are deployed separately on
-Render (see **Deployment** below).
-
-## Tech Stack
-
-- **Runtime**: Node.js 20 + Express.js
-- **Database**: MongoDB + Mongoose
-- **Auth**: JWT (access + refresh with rotation) + bcrypt
-- **Validation**: Joi
-- **Uploads**: Multer → Cloudinary (falls back to local disk if no keys)
-- **Scheduling**: node-cron
-- **Security**: helmet, cors, express-rate-limit
-
-## Getting Started
-
+<p align="center">
+  <img src="https://img.shields.io/badge/ODOO-HACKATHON%202026-714B67?style=for-the-badge&logo=odoo&logoColor=white" />
+  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Stack-MERN-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+</p>
+<h1 align="center">🏢 AssetFlow</h1>
+<h3 align="center">Enterprise Asset & Resource Management System</h3>
+<p align="center">
+  <i>A centralized ERP platform to simplify and digitize how organizations track, allocate, and maintain their physical assets and shared resources.</i>
+</p>
+<p align="center">
+  <a href="#-demo">Demo</a> •
+  <a href="#-features">Features</a> •
+  <a href="#%EF%B8%8F-tech-stack">Tech Stack</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-getting-started">Getting Started</a> •
+  <a href="#-team">Team</a>
+</p>
+---
+## 🎬 Demo
+> 🎥 **[Watch the Full Demonstration Video →](YOUR_VIDEO_LINK_HERE)**
+<!-- Replace YOUR_VIDEO_LINK_HERE with your actual demo video URL -->
+---
+## 📌 Problem Statement
+Organizations across industries — offices, schools, hospitals, factories — still rely on **spreadsheets and paper logs** to track equipment, furniture, vehicles, and shared spaces. This leads to:
+- ❌ No real-time visibility into asset location or condition
+- ❌ Manual allocation and return tracking prone to errors
+- ❌ Uncoordinated resource booking causing conflicts
+- ❌ Delayed maintenance leading to asset deterioration
+- ❌ Zero audit trail for accountability
+**AssetFlow** solves all of these by providing a **single, unified platform** for complete asset lifecycle management — from procurement to disposal.
+---
+## ✨ Features
+### 🔐 Authentication & Access Control
+- Secure JWT-based authentication with access & refresh tokens
+- Role-based access control (Admin, Asset Manager, Department Head, Employee)
+- Session tracking with IP logging
+### 📊 Executive Dashboard
+- Real-time KPI cards (Available Assets, Active Allocations, Pending Maintenance, etc.)
+- Interactive analytics with Bar & Pie charts (Recharts)
+- Recent activity timeline feed
+### 📦 Asset Directory & Lifecycle
+- Complete CRUD for assets with photo uploads (Cloudinary)
+- Category management with custom fields
+- Full lifecycle tracking: `Available → Allocated → Under Maintenance → Retired → Disposed`
+- Auto-generated unique Asset Tags
+### 🔄 Allocation & Transfer Management
+- Assign assets to employees or departments
+- Expected return date tracking with **overdue detection**
+- Inter-employee transfer requests with approval workflow
+- Condition-on-return documentation
+### 📅 Resource Booking & Calendar
+- Interactive calendar view (react-big-calendar)
+- List & calendar toggle for resource reservations
+- Booking conflict validation
+- Status tracking: `Confirmed → Completed / Cancelled`
+### 🔧 Maintenance & Ticketing
+- Issue reporting with priority levels (Low / Medium / High)
+- Technician assignment workflow
+- Full ticket lifecycle: `Pending → In Progress → Resolved → Closed`
+- Photo evidence upload support
+### 📋 Audit Management
+- Schedule & manage physical asset verification cycles
+- Assign auditors to audit cycles
+- Record per-asset results: `Verified / Missing / Damaged / Not Working`
+- Department & location scoped audits
+### 🏗️ Organization Setup (Admin)
+- Department hierarchy management (parent-child)
+- Employee CRUD with role assignment
+- Department head designation
+### 📈 Reports & Analytics
+- Asset distribution by category, status, and department
+- Maintenance cost analysis
+- Booking utilization reports
+- Exportable data (CSV)
+### 🔔 Notifications & Activity Logs
+- Real-time notification system (Return reminders, Booking updates, Maintenance alerts)
+- Comprehensive system-wide audit trail
+- Filterable activity logs with JSON payload inspection
+### ⚙️ Settings
+- Profile management with avatar
+- Notification preference toggles
+- Password security management
+---
+## 🛠️ Tech Stack
+|
+ Layer 
+|
+ Technology 
+|
+|
+---
+|
+---
+|
+|
+**
+Frontend
+**
+|
+ Next.js 15 (App Router), React 18+, TypeScript 
+|
+|
+**
+Styling
+**
+|
+ Tailwind CSS v4, Shadcn/UI, Framer Motion 
+|
+|
+**
+State Management
+**
+|
+ Zustand (with persist middleware) 
+|
+|
+**
+Forms & Validation
+**
+|
+ React Hook Form + Zod 
+|
+|
+**
+Charts
+**
+|
+ Recharts 
+|
+|
+**
+Calendar
+**
+|
+ react-big-calendar + date-fns 
+|
+|
+**
+HTTP Client
+**
+|
+ Axios (with interceptors for token refresh) 
+|
+|
+**
+Backend
+**
+|
+ Node.js 20+, Express.js 
+|
+|
+**
+Database
+**
+|
+ MongoDB + Mongoose ODM 
+|
+|
+**
+Authentication
+**
+|
+ JWT (Access + Refresh Tokens), bcryptjs 
+|
+|
+**
+File Uploads
+**
+|
+ Multer + Cloudinary 
+|
+|
+**
+Security
+**
+|
+ Helmet, CORS, express-rate-limit 
+|
+|
+**
+Background Jobs
+**
+|
+ node-cron (overdue detection, reminders) 
+|
+|
+**
+Validation
+**
+|
+ Joi (server-side) 
+|
+|
+**
+Logging
+**
+|
+ Morgan 
+|
+|
+**
+Deployment
+**
+|
+ Render (render.yaml configured) 
+|
+---
+## 🏗 Architecture
+```
+AssetFlow/
+├── server/                    # Express.js Backend API
+│   ├── config/                # DB connection, Cloudinary setup
+│   ├── controllers/           # Route handlers (business logic)
+│   ├── middleware/             # Auth guards, role checks, error handler
+│   ├── models/                # 15 Mongoose schemas
+│   │   ├── Asset.js
+│   │   ├── AssetAllocation.js
+│   │   ├── AssetCategory.js
+│   │   ├── AuditCycle.js
+│   │   ├── AuditRecord.js
+│   │   ├── Booking.js
+│   │   ├── Department.js
+│   │   ├── Employee.js
+│   │   ├── MaintenanceRequest.js
+│   │   ├── Notification.js
+│   │   ├── Role.js
+│   │   ├── TransferRequest.js
+│   │   ├── UserSession.js
+│   │   ├── ActivityLog.js
+│   │   └── Counter.js
+│   ├── routes/                # 15 RESTful route modules
+│   ├── validators/            # Joi request validation schemas
+│   ├── services/              # Business logic services
+│   ├── jobs/                  # Cron jobs (overdue checks, reminders)
+│   ├── seed/                  # Database seeder scripts
+│   ├── utils/                 # Helper functions
+│   ├── app.js                 # Express app configuration
+│   └── server.js              # Entry point
+│
+├── frontend/                  # Next.js 15 Frontend
+│   └── AssetFlow-.../
+│       ├── src/
+│       │   ├── app/
+│       │   │   ├── (auth)/        # Login, Signup, Forgot Password
+│       │   │   └── (dashboard)/   # All protected ERP modules
+│       │   │       ├── dashboard/
+│       │   │       ├── assets/
+│       │   │       ├── allocations/
+│       │   │       ├── bookings/
+│       │   │       ├── audits/
+│       │   │       ├── employees/
+│       │   │       ├── departments/
+│       │   │       ├── activity/
+│       │   │       └── settings/
+│       │   ├── components/
+│       │   │   ├── ui/            # Shadcn/UI primitives
+│       │   │   ├── layout/        # Sidebar, Header, DashboardLayout
+│       │   │   ├── auth/          # ProtectedRoute
+│       │   │   ├── assets/        # AssetFormDialog
+│       │   │   ├── bookings/      # BookingFormDialog
+│       │   │   ├── maintenance/   # MaintenanceFormDialog
+│       │   │   ├── employees/     # EmployeeFormDialog
+│       │   │   └── departments/   # DepartmentFormDialog
+│       │   ├── services/          # Axios instance & API services
+│       │   ├── store/             # Zustand auth store
+│       │   ├── types/             # TypeScript interfaces
+│       │   └── lib/               # Utility functions
+│       └── public/
+│
+├── render.yaml                # Render deployment config
+├── implementation_plan.md     # Detailed project blueprint
+└── ER Diagram.jpeg            # Entity Relationship Diagram
+```
+---
+## 🗃️ Database Design (ERD)
+The system is built on **15 interconnected MongoDB collections** covering the full enterprise asset lifecycle:
+<p align="center">
+  <img src="ER - Asset Management System - Odoo 2026.jpeg" alt="Entity Relationship Diagram" width="800"/>
+</p>
+---
+## 🚀 Getting Started
+### Prerequisites
+- **Node.js** ≥ 20.x
+- **MongoDB** (local or Atlas cloud)
+- **npm** package manager
+- **Git**
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/Prannav-Bansal/AssetFlow-Enterprise-Asset-Resource-Management-System.git
+cd AssetFlow-Enterprise-Asset-Resource-Management-System
+```
+### 2️⃣ Backend Setup
 ```bash
 cd server
 npm install
-
-# copy env template and fill in values (a working dev .env is already included)
-cp ../.env.example .env
-
-# load the rich demo dataset (roles, users, assets, allocations, bookings...)
-npm run seed
-
-# start the API (nodemon)
-npm run dev
-# or: npm start
 ```
-
-The API boots at `http://localhost:5000`. Health check: `GET /api/health`.
-
-### Demo credentials (after seeding)
-
-| Role  | Email | Password |
-|-------|-------|----------|
-| Admin | `admin@assetflow.com` | `Admin@123` |
-| User  | `aarav.sharma@assetflow.com` | `Password@123` |
-
-> All seeded non-admin users share the password `Password@123`.
-
-## Project Layout
-
-```
-server/
-├── config/        # db connection, cloudinary, enums/constants
-├── models/        # 14 Mongoose schemas (1:1 with the ERD) + Counter
-├── validators/    # Joi request schemas
-├── middleware/    # auth, role guard, validation, upload, error handling
-├── services/      # business logic (asset lifecycle, booking overlap, audit,
-│                  #   notifications, activity log)
-├── controllers/   # request handlers (thin — delegate to services)
-├── routes/        # Express routers, mounted in routes/index.js
-├── jobs/          # cron jobs (overdue, booking reminder, auto-complete)
-├── seed/          # database seeder
-├── app.js         # Express app factory
-└── server.js      # entry point (connect DB → listen → start jobs)
-```
-
-## Conventions
-
-- **Response envelope** — every endpoint returns
-  `{ success, message, data, meta? }`. Errors return
-  `{ success: false, message, details? }`.
-- **Auth** — send `Authorization: Bearer <accessToken>`. Refresh via
-  `POST /api/auth/refresh` with the refresh token (rotated on each use).
-- **Roles** — `Admin`, `Asset Manager`, `Department Head`, `Employee`.
-  Route guards use `authorize(...roles)`.
-- **Pagination** — list endpoints accept `?page=&limit=` and return `meta`.
-
-## API Overview
-
-| Area | Base path |
-|------|-----------|
-| Auth | `/api/auth` |
-| Departments | `/api/departments` |
-| Categories | `/api/categories` |
-| Employees | `/api/employees` |
-| Assets | `/api/assets` |
-| Allocations | `/api/allocations` |
-| Transfers | `/api/transfers` |
-| Bookings | `/api/bookings` |
-| Maintenance | `/api/maintenance` |
-| Audits | `/api/audits` |
-| Notifications | `/api/notifications` |
-| Activity Logs | `/api/activity-logs` (Admin) |
-| Dashboard | `/api/dashboard` |
-| Reports | `/api/reports` |
-
-### Key business rules enforced
-
-- **Asset lifecycle** transitions are validated against an allowed-transition map.
-- **Allocation conflict**: an asset with an active allocation cannot be
-  re-allocated — the API returns the current holder so the UI can offer a transfer.
-- **Transfer**: approving closes the old allocation and opens a new one atomically.
-- **Booking overlap**: overlapping time slots for the same asset are rejected.
-- **Maintenance workflow**: Pending → Approved → In Progress → Resolved → Closed,
-  with the asset status kept in sync (Under Maintenance ↔ Available).
-- **Audit**: starting a cycle generates blank records for in-scope assets;
-  closing applies discrepancy outcomes (Missing → Lost, Damaged/Not Working →
-  Under Maintenance).
-
-## Background Jobs
-
-| Job | Schedule | Effect |
-|-----|----------|--------|
-| Overdue checker | hourly | Flags overdue allocations, notifies holder + managers |
-| Booking reminder | every 15 min | Reminds bookers 30 min before start |
-| Booking auto-complete | hourly | Marks past confirmed bookings as Completed |
-
-Set `DISABLE_CRON=true` to turn jobs off.
-
-## Frontend
-
+Create the environment file:
 ```bash
-cd "frontend/AssetFlow-Enterprise-Asset-Resource-Management-System"
-npm install
-cp .env.example .env.local   # set NEXT_PUBLIC_API_URL if backend isn't on :5000
-npm run dev                  # http://localhost:3000
+cp ../.env.example .env
 ```
-
-Build for production with `npm run build && npm start`. Data fetching uses
-React Query against the backend API modules in `src/services/api/`.
-
-## Deployment (Render)
-
-The database runs on **MongoDB Atlas** (free tier). The two apps deploy as
-separate Render **Web Services** — either individually, or together via the
-included `render.yaml` blueprint (New → Blueprint → select this repo).
-
-### Backend service
-| Setting | Value |
-|---|---|
-| Root directory | `server` |
-| Build command | `npm install` |
-| Start command | `npm start` |
-| Health check | `/api/health` |
-
-Environment variables: `MONGO_URI`, `JWT_SECRET`, `JWT_REFRESH_SECRET`,
-`CLIENT_URL` (the deployed frontend URL — comma-separate to also allow
-localhost), and optionally the `CLOUDINARY_*` keys. See `.env.example`.
-
-### Frontend service
-| Setting | Value |
-|---|---|
-| Root directory | `frontend/AssetFlow-Enterprise-Asset-Resource-Management-System` |
-| Build command | `npm install && npm run build` |
-| Start command | `npm start` |
-
-Environment variable: `NEXT_PUBLIC_API_URL` = `https://<your-backend>.onrender.com/api`.
-
-> ⚠️ `NEXT_PUBLIC_*` variables are inlined at **build time**, so set
-> `NEXT_PUBLIC_API_URL` before the first build. Also update the backend's
-> `CLIENT_URL` to the frontend's URL, then redeploy the backend so CORS allows it.
-
-### Order of operations
-1. Deploy the **backend** first, seed the database (`npm run seed` locally
-   against your Atlas URI), and note its URL.
-2. Deploy the **frontend** with `NEXT_PUBLIC_API_URL` pointing at the backend.
-3. Set the backend's `CLIENT_URL` to the frontend URL and redeploy the backend.
+Update `.env` with your values:
+```env
+MONGO_URI=mongodb://127.0.0.1:27017/assetflow
+JWT_SECRET=your-secret-key
+JWT_REFRESH_SECRET=your-refresh-secret
+```
+Seed the database with sample data:
+```bash
+npm run seed
+```
+Start the backend server:
+```bash
+npm run dev
+```
+> Backend runs at `http://localhost:5000`
+### 3️⃣ Frontend Setup
+```bash
+cd frontend/AssetFlow-Enterprise-Asset-Resource-Management-System
+npm install
+```
+Start the development server:
+```bash
+npm run dev -- --webpack
+```
+> Frontend runs at `http://localhost:3000`
+### 4️⃣ Default Login Credentials
+After seeding, use these credentials to log in:
+|
+ Role 
+|
+ Email 
+|
+ Password 
+|
+|
+---
+|
+---
+|
+---
+|
+|
+ Admin 
+|
+`admin@assetflow.com`
+|
+`password123`
+|
+|
+ Asset Manager 
+|
+`manager@assetflow.com`
+|
+`password123`
+|
+|
+ Employee 
+|
+`employee@assetflow.com`
+|
+`password123`
+|
+---
+## 🔌 API Endpoints
+|
+ Module 
+|
+ Method 
+|
+ Endpoint 
+|
+ Description 
+|
+|
+---
+|
+---
+|
+---
+|
+---
+|
+|
+**
+Auth
+**
+|
+ POST 
+|
+`/api/auth/signup`
+|
+ Register new employee 
+|
+|
+|
+ POST 
+|
+`/api/auth/login`
+|
+ Login & get tokens 
+|
+|
+|
+ POST 
+|
+`/api/auth/refresh`
+|
+ Refresh access token 
+|
+|
+|
+ POST 
+|
+`/api/auth/logout`
+|
+ Invalidate session 
+|
+|
+**
+Assets
+**
+|
+ GET 
+|
+`/api/assets`
+|
+ List assets (filterable) 
+|
+|
+|
+ POST 
+|
+`/api/assets`
+|
+ Create new asset 
+|
+|
+|
+ PATCH 
+|
+`/api/assets/:id`
+|
+ Update asset 
+|
+|
+|
+ DELETE 
+|
+`/api/assets/:id`
+|
+ Retire/dispose asset 
+|
+|
+**
+Allocations
+**
+|
+ POST 
+|
+`/api/allocations`
+|
+ Allocate asset 
+|
+|
+|
+ PATCH 
+|
+`/api/allocations/:id/return`
+|
+ Return asset 
+|
+|
+**
+Transfers
+**
+|
+ POST 
+|
+`/api/transfers`
+|
+ Request transfer 
+|
+|
+|
+ PATCH 
+|
+`/api/transfers/:id/approve`
+|
+ Approve/reject transfer 
+|
+|
+**
+Bookings
+**
+|
+ GET 
+|
+`/api/bookings`
+|
+ List bookings 
+|
+|
+|
+ POST 
+|
+`/api/bookings`
+|
+ Create booking 
+|
+|
+|
+ PATCH 
+|
+`/api/bookings/:id/cancel`
+|
+ Cancel booking 
+|
+|
+**
+Maintenance
+**
+|
+ POST 
+|
+`/api/maintenance`
+|
+ Report issue 
+|
+|
+|
+ PATCH 
+|
+`/api/maintenance/:id/assign`
+|
+ Assign technician 
+|
+|
+|
+ PATCH 
+|
+`/api/maintenance/:id/resolve`
+|
+ Resolve ticket 
+|
+|
+**
+Audits
+**
+|
+ POST 
+|
+`/api/audits/cycles`
+|
+ Create audit cycle 
+|
+|
+|
+ POST 
+|
+`/api/audits/records`
+|
+ Record audit result 
+|
+|
+**
+Dashboard
+**
+|
+ GET 
+|
+`/api/dashboard/kpis`
+|
+ Get KPI metrics 
+|
+|
+**
+Reports
+**
+|
+ GET 
+|
+`/api/reports/assets`
+|
+ Asset analytics 
+|
+---
+## 👥 Team
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>Pranav Bansal</b><br/>
+      <sub>Team Lead</sub><br/>
+      <a href="https://github.com/Prannav-Bansal">
+        <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" />
+      </a>
+    </td>
+    <td align="center">
+      <b>Rytham Maalpani</b><br/>
+      <sub>Member</sub>
+    </td>
+    <td align="center">
+      <b>Aarjav Jain</b><br/>
+      <sub>Member</sub>
+    </td>
+  </tr>
+</table>
+---
+## 📄 License
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+---
+<p align="center">
+  Built with ❤️ for the <b>Odoo Hackathon 2026</b>
+</p>
