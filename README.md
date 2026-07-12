@@ -6,10 +6,11 @@
 ---
 ## 👥 Team
 | Name | Role |
-|------|------|--------|
-| **Pranav Bansal** | 🎯 Team Lead | 
-| **Rytham Maalpani** | 💻 Member | 
-| **Aarjav Jain** | 💻 Member | —|
+|------|------|
+| **Pranav Bansal** | 🎯 Team Lead |
+| **Rytham Maalpani** | 💻 Member |
+| **Aarjav Jain** | 💻 Member |
+
 ---
 ## 🎬 Demo
 🎥 **[Watch the Full Demonstration Video →](YOUR_VIDEO_LINK_HERE)**
