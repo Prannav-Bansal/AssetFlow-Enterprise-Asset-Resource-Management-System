@@ -1,0 +1,52 @@
+# Render Blueprint — deploys the AssetFlow backend and frontend together.
+# In Render: New → Blueprint → point at this repo. Fill in the values marked
+# sync:false (secrets) in the dashboard after the services are created.
+services:
+  # ── Backend API (Express) ──────────────────────────────
+  - type: web
+    name: assetflow-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false # paste your MongoDB Atlas connection string
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_EXPIRES
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES
+        value: 7d
+      # Set to the deployed frontend URL once it exists (comma-separate to also
+      # allow localhost), e.g. https://assetflow-web.onrender.com
+      - key: CLIENT_URL
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+
+  # ── Frontend (Next.js) ─────────────────────────────────
+  - type: web
+    name: assetflow-web
+    runtime: node
+    rootDir: frontend/AssetFlow-Enterprise-Asset-Resource-Management-System
+    plan: free
+    # --include=dev ensures TypeScript/Tailwind (devDependencies) are installed
+    # even if NODE_ENV=production is set on the service, so `next build` works.
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    envVars:
+      # NEXT_PUBLIC_* is baked in at build time — set this before the first build
+      # to the backend URL, e.g. https://assetflow-api.onrender.com/api
+      - key: NEXT_PUBLIC_API_URL
+        sync: false

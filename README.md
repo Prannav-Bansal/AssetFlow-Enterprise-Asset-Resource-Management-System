@@ -1,8 +1,15 @@
-# AssetFlow — Backend
+# AssetFlow — Enterprise Asset & Resource Management System
 
-Enterprise Asset & Resource Management System. This repository contains the
-**Node.js / Express / MongoDB backend** implementing the full API surface
-described in `implementation_plan.md` and the ER diagram.
+Full-stack MERN application for tracking assets, allocations, bookings,
+maintenance, and audits. This is a monorepo with two deployable apps:
+
+| App | Path | Stack |
+|-----|------|-------|
+| **Backend API** | `server/` | Node.js + Express + MongoDB (Mongoose) |
+| **Frontend** | `frontend/AssetFlow-Enterprise-Asset-Resource-Management-System/` | Next.js 16 + React 19 + Tailwind |
+
+The frontend talks to the backend over REST; both are deployed separately on
+Render (see **Deployment** below).
 
 ## Tech Stack
 
@@ -113,8 +120,51 @@ server/
 
 Set `DISABLE_CRON=true` to turn jobs off.
 
-## Deployment
+## Frontend
 
-- **Backend**: Render / Railway (set the env vars from `.env.example`).
-- **Database**: MongoDB Atlas free tier.
-- Configure `CLIENT_URL` to your deployed frontend origin for CORS.
+```bash
+cd "frontend/AssetFlow-Enterprise-Asset-Resource-Management-System"
+npm install
+cp .env.example .env.local   # set NEXT_PUBLIC_API_URL if backend isn't on :5000
+npm run dev                  # http://localhost:3000
+```
+
+Build for production with `npm run build && npm start`. Data fetching uses
+React Query against the backend API modules in `src/services/api/`.
+
+## Deployment (Render)
+
+The database runs on **MongoDB Atlas** (free tier). The two apps deploy as
+separate Render **Web Services** — either individually, or together via the
+included `render.yaml` blueprint (New → Blueprint → select this repo).
+
+### Backend service
+| Setting | Value |
+|---|---|
+| Root directory | `server` |
+| Build command | `npm install` |
+| Start command | `npm start` |
+| Health check | `/api/health` |
+
+Environment variables: `MONGO_URI`, `JWT_SECRET`, `JWT_REFRESH_SECRET`,
+`CLIENT_URL` (the deployed frontend URL — comma-separate to also allow
+localhost), and optionally the `CLOUDINARY_*` keys. See `.env.example`.
+
+### Frontend service
+| Setting | Value |
+|---|---|
+| Root directory | `frontend/AssetFlow-Enterprise-Asset-Resource-Management-System` |
+| Build command | `npm install && npm run build` |
+| Start command | `npm start` |
+
+Environment variable: `NEXT_PUBLIC_API_URL` = `https://<your-backend>.onrender.com/api`.
+
+> ⚠️ `NEXT_PUBLIC_*` variables are inlined at **build time**, so set
+> `NEXT_PUBLIC_API_URL` before the first build. Also update the backend's
+> `CLIENT_URL` to the frontend's URL, then redeploy the backend so CORS allows it.
+
+### Order of operations
+1. Deploy the **backend** first, seed the database (`npm run seed` locally
+   against your Atlas URI), and note its URL.
+2. Deploy the **frontend** with `NEXT_PUBLIC_API_URL` pointing at the backend.
+3. Set the backend's `CLIENT_URL` to the frontend URL and redeploy the backend.
